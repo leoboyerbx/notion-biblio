@@ -1,3 +1,4 @@
+const {getNotionBiblio} = require('./src/notion')
 require('dotenv-flow').config();
 const fastify = require("fastify")();
 
@@ -7,8 +8,10 @@ fastify.register(require("@fastify/view"), {
     },
 });
 
-fastify.get("/", (req, reply) => {
-    reply.view("/views/biblio.hbs", { text: "text" });
+fastify.get("/", async (req, reply) => {
+    const biblio = await getNotionBiblio()
+    console.log(biblio)
+    return reply.view("/views/biblio.hbs", {biblio});
 });
 
 fastify.listen({ port: 3000 }, (err) => {
