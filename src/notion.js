@@ -49,23 +49,29 @@ async function getNotionBiblio(refresh = false) {
         const owner = properties.Owner.rich_text[0]?.plain_text
         const type  = properties["Type"]["select"].name
 
+        const formatter = new Intl.DateTimeFormat('fr-FR', {
+        })
         let pubDate = properties['Publié le']?.date?.start
         if (pubDate) {
-            const formatter = new Intl.DateTimeFormat('fr-FR', {
-
-            })
             const date = new Date(pubDate)
             pubDate = formatter.format(date)
         }
         const url = properties.URL.url
+
+        let consultDate = properties['Consulté le'].created_time
+        if (consultDate) {
+            const date = new Date(consultDate)
+            consultDate = formatter.format(date)
+        }
         return {
             title,
             author,
             owner,
             pubDate,
             type,
-            url
-            // published
+            url,
+            pubDate,
+            consultDate
         }
     })
         .sort((a, b) => {

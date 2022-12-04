@@ -17,7 +17,7 @@
                 <i>{{ title }}</i><!--
                 -->{{#if owner }}<span>, {{ owner }}</span>{{/if}}<!--
                 -->.
-                <span>Publié{{#if feminin}}e{{/if}} le <strong>12/12/2022</strong>, consulté{{#if feminin}}e{{/if}} le <strong>12/12/2022</strong>.</span>
+                <span>Publié{{#if feminin}}e{{/if}} le <strong>{{ pubDate }}</strong>, consulté{{#if feminin}}e{{/if}} le <strong>{{ consultDate }}</strong>.</span>
                 <br>
                 <a href="{{ url}}">{{ url }}</a>
             </p>
