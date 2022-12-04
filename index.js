@@ -9,8 +9,7 @@ fastify.register(require("@fastify/view"), {
 });
 
 fastify.get("/", async (req, reply) => {
-    const biblio = await getNotionBiblio()
-    console.log(biblio)
+    const biblio = await getNotionBiblio(!!+req.query.refresh)
     return reply.view("/views/biblio.hbs", {biblio});
 });
 
