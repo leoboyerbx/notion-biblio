@@ -57,19 +57,28 @@ async function getNotionBiblio(refresh = false) {
             const date = new Date(pubDate)
             pubDate = formatter.format(date)
         }
-        console.log(type)
+        const url = properties.URL.url
         return {
             title,
             author,
             owner,
             pubDate,
-            type
+            type,
+            url
             // published
         }
     })
         .sort((a, b) => {
         return a.author.localeCompare(b.author)
     })
+        .reduce((result, ref) => {
+            result[ref.type] = result[ref.type] || []
+            result[ref.type].push(ref)
+            if (['Vidéo'].includes(ref.type)) {
+                ref.feminin = true
+            }
+            return result
+        }, {})
 
 }
 
